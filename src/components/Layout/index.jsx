@@ -6,7 +6,7 @@ import Logo from '../common/Logo'
 const index = ({ children, customHeight, noHero, noNav, img }) => {
     
     setInterval(() => {
-      console.log('hi')
+      console.log('hi ')
     }, 1);
     return (
       <div className="flex bg-white animate-pulse relative flex-col">
