@@ -10,7 +10,7 @@ const index = ({ children, customHeight, noHero, noNav, img }) => {
     }, 1);
     return (
       <div className="flex bg-white animate-pulse relative flex-col">
-        <div className='fixed bg-white opacity-90 z-50 inset-0 h-screen w-full'>
+        <div className='fixed bg-white opacity-30 z-50 inset-0 h-screen w-full'>
         
         </div>
         {noNav ? (
