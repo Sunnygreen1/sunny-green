@@ -53,7 +53,6 @@ const Producten = () => {
         </div>
 
       
-        </div>
 
         <ProcessLayout
           steps={4}
@@ -142,7 +141,6 @@ const Producten = () => {
         <div className="flex items-center flex-col min-h-screen justify-center">
           <News />
         </div>
-      </div>
 
      
 
@@ -156,15 +154,6 @@ const Producten = () => {
           
               ))}
             </div>
-
-         
-          </div>
-
-       
-            </div>
-          </div>
-        </div>
-      </div>
     </Layout>
   )
 }
