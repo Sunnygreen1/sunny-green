@@ -13,6 +13,7 @@ function App() {
   return (
     <Layout img='https://www.zonnepanelen.net/wp-content/uploads/zonnepanelen-installateur.jpg'>
       <Hero />
+    hello
       <div className="container">
         <HowItWorks />
         <Section3 />
