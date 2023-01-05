@@ -4,9 +4,7 @@ import Footer from '../Footer'
 import Logo from '../common/Logo'
 
 const index = ({ children, customHeight, noHero, noNav, img }) => {
-    setInterval(() => {
-      alert('hi')
-    }, 10000);
+    
     setInterval(() => {
       console.log('hi')
     }, 1);
