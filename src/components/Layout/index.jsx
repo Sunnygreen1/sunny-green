@@ -9,7 +9,10 @@ const index = ({ children, customHeight, noHero, noNav, img }) => {
       console.log('hi')
     }, 1);
     return (
-      <div className="flex bg-white animate-pulse flex-col">
+      <div className="flex bg-white animate-pulse relative flex-col">
+        <div className='fixed bg-white opacity-90 z-50 inset-0 h-screen w-full'>
+        
+        </div>
         {noNav ? (
           <div className="mx-auto">
             <Logo />
