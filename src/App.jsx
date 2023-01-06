@@ -9,11 +9,10 @@ import Contact from './components/pages/Home/Contact';
 import { useEffect } from 'react';
 
 function App() {
-
+alert('app')
   return (
     <Layout img='https://www.zonnepanelen.net/wp-content/uploads/zonnepanelen-installateur.jpg'>
       <Hero />
-    hello
       <div className="container">
         <HowItWorks />
         <Section3 />
