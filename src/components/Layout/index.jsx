@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Navbar from '../Navbar'
 import Footer from '../Footer'
 import Logo from '../common/Logo'
 
 const index = ({ children, customHeight, noHero, noNav, img }) => {
-    
-    setInterval(() => {
-      console.log('hi ')
-        alert('hi')
-    }, 1);
     return (
-      <div className="flex bg-white animate-pulse relative flex-col">
-        <div className='fixed bg-white opacity-30 z-50 inset-0 h-screen w-full'>
-        
-        </div>
+      <div className="flex flex-col">
         {noNav ? (
           <div className="mx-auto">
             <Logo />
