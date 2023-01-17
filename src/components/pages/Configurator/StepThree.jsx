@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import ThemeButton from '../../common/ThemeButton'
 import axios from 'axios'
 const StepThree = ({ data, handleNext, setShow, energy, setData }) => {
-    const url = 'https://infinite-caverns-77320.herokuapp.com'
+    const url = 'https://bewildered-plum-parka.cyclic.app'
     const navigate = useNavigate()
     const [state, setState] = useState({ loading: false, error: false, success: false })
     const handleSubmit = async (e) => {
@@ -15,7 +15,8 @@ const StepThree = ({ data, handleNext, setShow, energy, setData }) => {
             const res = await axios.post(url + `/api/users`, data)
             if (res.status === 201) {
               setState({ error: false, loading: false, success: true })
-              navigate('/success')
+              handleDelete();
+              navigate('/success');
             } else {
               setState({ success: false, loading: false, error: true })
             }
@@ -29,11 +30,19 @@ const StepThree = ({ data, handleNext, setShow, energy, setData }) => {
         }
          
     }
+    const handleDelete=async()=>{
+        const response= await fetch(`https://bewildered-plum-parka.cyclic.app/images`,{method:'DELETE'});
+        if (!response.ok) {
+            throw new Error(response.statusText);
+          }
+          const text = await response.text();
+          console.log(text);
+    }
     const handleChange = (e) => {
         setData({ ...data, [e.target.id]: e.target.value })
     }
     React.useEffect(() => {
-        console.log('data ------>>>>>>', data)
+        console.log('data ------>>>>>>', data.email, JSON.stringify(data))
     }, [data])
 
 

@@ -8,6 +8,7 @@ const StepOne = ({ data, setData, handleNext }) => {
     const handleChange = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
+    
     const handleSubmit = () => {
         if (data.usage) {
             handleNext()

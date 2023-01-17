@@ -21,7 +21,7 @@ const Hero = ({
     const [drop, setDrop] = useState(false)
     const [dropVal, setDropVal] = useState('Toev. ')
     const [img, setImg] = useState('')
-    const [imageFromGoogle, setImageFromGoogle] = useRecoilState(atomImageFromGoogle)
+    const [imageFromGoogle, setImageFromGoogle] = useState('')
     const [error, setError] = useState(false)
     const [inputError, setInputError] = useState({ post_code: false, huisnummer: false })
     const navigate = useNavigate()
@@ -54,7 +54,7 @@ const Hero = ({
 
 
     useEffect(() => {
-        console.log(data, '-------------> data')
+        console.log(data,imageFromGoogle, '-------------> data')
         if (requested) {
             if (data.post_code?.length > 1) {
                 setInputError({ ...inputError, post_code: false })

@@ -1,9 +1,42 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ThemeButton from '../../common/ThemeButton'
+import axios from 'axios'
+import { useEffect, useState } from 'react';
 
 
 const Contact = ({ onlyContact, form, content }) => {
+    const url = 'http://localhost:3000/'
+    const [state, setState] = useState({ loading: false, error: false, success: false })
+    const [data,setData]=useState({})
+    const navigate = useNavigate()
+    const handleChange = (e) => {
+        setData({ ...data, [e.target.name]: e.target.value })
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setState({ ...state, loading: true })
+        try {
+          if (data.fname && data.email) {
+            const res = await axios.post(url + `/api/users`, data)
+            if (res.status === 201) {
+              setState({ error: false, loading: false, success: true })
+              navigate('/success')
+            } else {
+              setState({ success: false, loading: false, error: true })
+            }
+          } else {
+            setState({ success: false, loading: false, error: true })
+            alert('Please fill the form!')
+          }
+        } catch (error) {
+            setState({ success: false, loading: false, error: true })
+
+        }
+    }
+    React.useEffect(() => {
+        console.log('data ------>>>>>>', data.email, JSON.stringify(data))
+    }, [data])
     return (
         <div className='max-w-[60rem] pt-12 lg:pt-20 mx-auto flex flex-col gap-12 lg:gap-20'>
             {!onlyContact &&
@@ -35,18 +68,18 @@ const Contact = ({ onlyContact, form, content }) => {
                     </div>
                     <form className='max-w-[50rem] w-full mx-auto flex flex-col gap-4'>
                         <div className="grid grid-cols-2 gap-4">
-                            <input type='text' placeholder='Voornaam' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
-                            <input type='text' placeholder='Achternaam' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                            <input onChange={handleChange} type='text' placeholder='Voornaam' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                            <input onChange={handleChange} type='text' placeholder='Achternaam' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
                         </div>
-                        <input type='email' placeholder='E-mailadres' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
-                        <input type='number' placeholder='Telefoonnummer' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                        <input onChange={handleChange} type='email' placeholder='E-mailadres' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                        <input onChange={handleChange} type='number' placeholder='Telefoonnummer' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
                         <div className="grid grid-cols-2 gap-4">
-                            <input type='number' placeholder='Postcode*' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
-                            <input type='number' placeholder='Huisnummer + toevoeging*' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                            <input onChange={handleChange} type='number' placeholder='Postcode*' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
+                            <input onChange={handleChange} type='number' placeholder='Huisnummer + toevoeging*' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100' />
                         </div>
                         <textarea placeholder='Opmerkingen' className='p-3 rounded-md focus:border-blue-600 border outline-none bg-gray-100 min-h-[120px]' cols="30" rows="7"></textarea>
                         <button className="ml-auto">
-                            <ThemeButton text='Verzenden' />
+                            <ThemeButton onClick={handleSubmit} text='Verzenden' />
                         </button>
                     </form>
                 </div>

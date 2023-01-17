@@ -41,4 +41,4 @@ const index = ({ children, customHeight, noHero, noNav, img }) => {
     )
 }
 
-export default index
+export default index;

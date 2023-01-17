@@ -12,15 +12,15 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
-import { FreeMode, Navigation, Pagination } from 'swiper'
-import axios from 'axios'
+import { Navigation, Pagination } from 'swiper'
+
 
 const HomeScreen = () => {
     const [data, setData] = useState({})
     const [requested, setRequested] = useState(false)
     const [drop, setDrop] = useState(false)
     const [dropVal, setDropVal] = useState('Toev. ')
-    const [img, setImg] = useState('')
+    // const [image, setImg] = useState({});
     const [imageFromGoogle, setImageFromGoogle] = useRecoilState(atomImageFromGoogle)
     const [error, setError] = useState(false)
     const [inputError, setInputError] = useState({ post_code: false, huisnummer: false })
@@ -29,21 +29,27 @@ const HomeScreen = () => {
     const handleChange = (e) => {
         setData({ ...data, [e.target.id]: e.target.value })
     }
+    const fetchData= async ()=>{
+      const response = await fetch(`https://bewildered-plum-parka.cyclic.app/image?zipCode=${data.post_code.toUpperCase()}&houseNumber=${data.huisnummer}`);
+      const blob = await response.blob();
+      const imageSrc = URL.createObjectURL(blob);    
+      console.log(imageSrc)           
+      setImageFromGoogle({
+        img: imageSrc,
+        post_code: data.post_code,
+        isImage: true,
+        huisnummer: data.huisnummer,
+      })
+    }
     const handleSubmit = () => {
         setRequested(true)
         if (data.post_code.length > 1) {
             console.log(data.post_code)
             console.log(data.huisnummer)
+            
             if (data.huisnummer) {
-                setImageFromGoogle({
-                  img: `https://maps.googleapis.com/maps/api/streetview?size=800x1000&fov=120&heading=80&pitch=-90&location=${data.huisnummer}+${data.post_code}+${country}&key=AIzaSyBzWdnRBCT9YcdlIcxL5TyiHg9spWWv5Lo`,
-                  // img: `https://true-ortho.int.enie.dev/api/readar/map?zipcode=${data.post_code.toUpperCase()}&house_number=${data.huisnummer}`,
-                  // https://true-ortho.int.enie.dev/api/readar/map?zipcode=3061CS&house_number=24
-                  post_code: data.post_code,
-                  isImage: true,
-                  huisnummer: data.huisnummer,
-                })
-                navigate('/configurator')
+              fetchData();
+              navigate('/configurator')
             } else {
                 setInputError({ post_code: false, huisnummer: true })
             }

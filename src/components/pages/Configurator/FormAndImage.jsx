@@ -23,7 +23,6 @@ const FormAndImage = () => {
         own_the_house: false,
     })
 
-    console.log(leftSideImage)
     const [showLeft, setShowLeft] = React.useState(false)
     const navigate = useNavigate()
     const [show, setShow] = React.useState(1)
@@ -241,7 +240,7 @@ const FormAndImage = () => {
             )}
           </div>
           <div className=" col-span-1 lg:col-span-4 flex w-full items-center">
-            {show === 1 ? (
+            {show === 1 ? (     
               <StepOne data={data} handleNext={handleNext} setData={setData} />
             ) : show === 2 ? (
               <StepTwo
